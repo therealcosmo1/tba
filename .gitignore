@@ -5,7 +5,3 @@ playtest/
 *.log
 .env
 .claude/settings.local.json
-
-# Local notes for Claude, kept off GitHub
-docs/
-CLAUDE.md
