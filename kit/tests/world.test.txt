@@ -1,0 +1,150 @@
+@content fixtures/world.js
+# Switches, hidden passages, LOOK <dir>, shared things, timers, thing conditions,
+# NOT conditions and followers, against a neutral fixture.
+
+# Switchable things: own texts, built-in ones otherwise, and their state on examining
+> x lamp1
+The LAMP_1 is off.
+> turn on lamp1
+LAMP_LIGHTS
+> x lamp1
+LAMP_IS_LIT
+> turn lamp1 on
+already on
+> switch off fan1
+You turn off the FAN_1.
+> turn on stone1
+not something you can switch
+
+# LOOK in a direction: the location's own text, a way out, or nothing
+> look east
+LOOK_EAST_TEXT
+> look north
+That way is the ARCH_1.
+> l south
+nothing special
+
+# Conditions about the thing used, and a NOT condition
+> poke stone1
+POKED_THE_STONE
+> poke lamp1
+HOT_LAMP
+> poke fan1
+NO_STONE_HELD
+> take stone1
+> poke fan1
+POKE_DEFAULT
+
+# A hidden passage is no way out and can't be referred to until it's shown
+!SECRET_2
+> w
+can't go that way
+> x secret2
+can't see any such thing
+> touch lever1
+SECRET_REVEALED
+> x secret2
+You see nothing special
+!BELL_RINGS
+
+# ...and the delayed event happens at the end of the second turn after
+> z
+BELL_RINGS
+
+# Per-end passage descriptions
+> x arch1
+ARCH_FROM_LOC1
+
+# A follower goes where the player goes; shared things are in both places
+> beckon helper1
+HELPER_COMES
+> n
+LOC_2
+HELPER_TAGS_ALONG
+!follows you
+On the TRAY_2 are some COINS_2.
+> x arch1
+ARCH_SHARED
+> x sky1
+SKY_DESC
+> take sky1
+not something you can pick up
+
+# A dark place: only its ways out until a light comes in
+> s
+> w
+LOC_3
+LOC3_DARK
+!GEM_3
+> x gem3
+can't see any such thing
+> e
+> take torch1
+> turn on torch1
+> w
+LOC_3 description.
+GEM_3
+> turn off torch1
+> look
+LOC3_DARK
+> turn on torch1
+> e
+
+
+# A follower's own text, {once}: said the first time only
+> n
+!HELPER_TAGS_ALONG
+
+# A rule's effects don't set off another rule of the same verb in the same go
+> tap
+TAP_FIRST
+!TAP_AGAIN
+> tap
+TAP_AGAIN
+!TAP_FIRST
+
+# Details: words for things a location's text mentions
+> s
+> x tower9
+TOWER9_DETAIL
+> x far spire9
+TOWER9_DETAIL
+> take tower9
+not something you can pick up
+
+# Inventory says what is lit
+> i
+TORCH_1 (lit)
+
+# Stairs refuse the wrong way; ASK/TELL/SAY open a conversation, with any topic
+> n
+> go down stairs3
+only goes up from here
+> go up stairs3
+LOC_4
+> go up stairs3
+only goes down from here
+> ask talker4 about the weather and xyzzy
+TALKER4_SAYS
+> talk to talker4
+(Talking with TALKER_4
+OPTION_A
+!step away
+> leave
+> say hello
+TALKER4_SAYS
+> leave
+> d
+> say hello
+!TALKER4_SAYS
+
+# LEAVE outside a conversation, THROW, and ASK HER while talking
+> leave
+You aren't talking to anyone.
+> throw torch1
+fetch the TORCH_1 again
+> u
+> talk to talker4
+> ask her about the moon
+OPTION_A
+!step away

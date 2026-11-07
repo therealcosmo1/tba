@@ -1,0 +1,13 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "tba",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "kit/tools/serve.mjs"
+      ],
+      "port": 8767
+    }
+  ]
+}

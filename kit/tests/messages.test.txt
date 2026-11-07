@@ -1,0 +1,35 @@
+@content fixtures/messages.js
+# Built-in messages overridden from the Game tab, against a neutral fixture.
+
+# Room listing uses the contents template, capitalised param at the start
+On the BOX_1 MSG_CONTENTS a THING_2
+
+# A param, its capitalised form, and a game variable in one message
+> take thing1
+MSG_TAKEN The THING_1 for Ada
+
+# Parser messages
+> xyzzy
+MSG_UNKNOWN xyzzy
+> x nothing
+MSG_UNKNOWN nothing
+
+# HELP is the game's text, line by line
+> help
+MSG_HELP_1
+MSG_HELP_2
+!Type commands in plain English
+
+# Inventory heading and worn tag
+> wear thing1
+> i
+MSG_CARRYING
+THING_1 MSG_WORN
+
+# A blank override keeps the default
+> z
+Time passes.
+
+# Session messages
+> undo
+MSG_UNDONE

@@ -1,0 +1,57 @@
+@content fixtures/objects.js
+# Editor objects, reactions, and actor and passage extras, against a neutral fixture.
+
+# Scenery things and actors aren't listed; loose things and things on supporters are
+> look
+ROOM_1 description.
+!CROWD_1
+!You can also see the TABLE_1
+a KEY_1
+On the TABLE_1 are a BOX_1 and a CUP_1.
+
+# Scenery actors answer with their talk text
+> talk to crowd1
+CROWD_TALK
+
+# Fixed text, smell, reading and wearing
+> take table1
+TABLE_FIXED
+> smell key1
+KEY_SMELL
+> read note1
+NOTE_TEXT
+> i
+some HAT_1 (worn)
+
+# A locked container opens with its key
+> open box1
+BOX_1 is locked
+> unlock box1 with key1
+You unlock the BOX_1.
+> open box1
+GEM_1
+
+# Drinking leaves what it becomes
+> drink cup1
+CUP_DRUNK
+> x cup2
+You see nothing special
+
+# A locked editor door with a key and a message for leading nowhere
+> n
+DOOR_1 is locked
+> unlock door1 with key1
+You unlock the DOOR_1.
+> n
+DOOR_BLOCKED
+
+# A reaction that replaces the usual result, only once, and feeds an event
+> take trap1
+TRAP_SPRUNG
+!Taken
+EVENT_AFTER_TRAP
+> x trap1
+TRAP_SPENT
+> take trap1
+Taken.
+!TRAP_SPRUNG

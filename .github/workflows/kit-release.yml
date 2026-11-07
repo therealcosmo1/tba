@@ -1,0 +1,21 @@
+# Push a tag like kit-v0.1.0 to publish a download of the kit (an empty new project)
+# as a GitHub Release. The game itself is never included.
+name: Kit release
+on:
+  push:
+    tags: ['kit-v*']
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm test
+      - run: npm run package -- "${GITHUB_REF_NAME}"
+      - run: gh release create "${GITHUB_REF_NAME}" dist/*.zip --title "Kit ${GITHUB_REF_NAME#kit-v}" --generate-notes
+        env:
+          GH_TOKEN: ${{ github.token }}

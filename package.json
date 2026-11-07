@@ -1,0 +1,16 @@
+{
+  "name": "yuriful-tba",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node kit/tools/serve.mjs",
+    "build": "node kit/tools/build.mjs --all",
+    "test": "node kit/tests/run.mjs && node kit/tools/build.mjs --check",
+    "setup": "git config core.hooksPath kit/hooks && echo 'Commit checks on: Game: and Kit: commits are kept apart.'",
+    "package": "node kit/tools/package.mjs",
+    "service:install": "node kit/tools/service.mjs install",
+    "service:uninstall": "node kit/tools/service.mjs uninstall",
+    "service:status": "node kit/tools/service.mjs status",
+    "playtest": "node kit/tools/playtest.mjs"
+  }
+}

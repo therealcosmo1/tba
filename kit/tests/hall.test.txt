@@ -1,0 +1,234 @@
+@content fixtures/hall.js
+# Mechanics tests for the receiving hall test room.
+
+# Start and looking
+Receiving Hall
+On the wine table is a glass of wine.
+> l
+Receiving Hall
+> x me
+Ada, of House Testhouse.
+dressed well enough
+
+# Unknown words, non-verbs, missing nouns
+> dance
+I don't know the word "dance"
+> table
+not a verb
+> x
+What do you want to examine?
+> double staircase
+Two flights of pale stone
+
+# Disambiguation, answered with an adjective
+> x table
+Which do you mean, the wine table, the pastry table or the flower table?
+> wine
+A long table draped in linen
+On the wine table is a glass of wine.
+> x refreshment table
+Which do you mean, the wine table or the pastry table?
+> pastry one
+platters of small cakes
+
+# A new command instead of an answer
+> x table
+Which do you mean
+> look
+Receiving Hall
+
+# Head noun wins: "flower" is the lily, not the flower table or the centrepiece
+> take flower
+Taken.
+> x it
+single white lily
+> i
+lily
+invitation
+signet ring (worn)
+
+# Wearing and taking off
+> wear it
+tuck the lily into your buttonhole
+> remove ring
+You take off the signet ring.
+> take ring off
+aren't wearing that
+> put on ring
+You put on the signet ring.
+
+# Implicit take, state change on drinking, "it"
+> drink wine
+(first taking the glass of wine)
+better than anything
+> x glass
+An empty wine glass.
+> put it on pastry table
+You put the empty glass on the pastry table.
+> take glass from pastry table
+Taken.
+
+---
+# take all / all except / multiple objects / drop
+> take all except lily
+Glass of wine: Taken.
+Honey cake: Taken.
+!Lily
+> drop wine and cake
+Glass of wine: Dropped.
+Honey cake: Dropped.
+> take all
+Glass of wine: Taken.
+!Signet ring
+> drop all
+Glass of wine: Dropped.
+!Signet ring
+
+---
+# Chaining, again, eating
+> take cake then eat it
+Taken.
+honey cake in two bites
+> x honey cake
+can't see any such thing
+# With the cake gone, "cake" falls back to the pastry table's adjective
+> x cake
+platters of small cakes
+> take lily. wear it
+tuck the lily
+> g
+already wearing it
+
+# Fixed things and scenery
+> take table
+Which do you mean
+> wine
+not something you can pick up
+> take centrepiece
+far too big to carry
+> take chandelier
+out of reach
+> take crowd
+wouldn't appreciate that
+> talk to crowd
+conversation isn't built
+
+# Doors: both west doors are locked
+> open west door
+Which do you mean, the northwest door or the southwest door?
+> northwest
+northwest door is locked
+> go west
+two doors in the west wall
+> sw
+southwest door is locked
+> unlock nw door
+need to say what to unlock
+
+# The entrance only leads in from The Gates (one way), so the hall can't be left by it
+> s
+!The Gates
+!(first opening
+> look
+Receiving Hall
+
+# An exit that refuses
+> climb stairs
+upper floor
+
+# East doors lead to two balconies that can see each other
+> enter ne door
+(first opening the northeast door)
+North Balcony
+TODO: describe the north balcony.
+Across the way, on the south balcony, you can see the guests on the south balcony.
+> x guests
+TODO: describe the guests on the south balcony.
+!Talking with
+> talk to guests
+too far away
+> x south balcony
+on the south balcony, you can see the guests on the south balcony
+> x northeast door
+northeast door is open
+> w
+Receiving Hall
+> se
+(first opening the southeast door)
+South Balcony
+!you can see the guests on the south balcony here
+You can also see the guests on the south balcony here.
+Across the way you can see the north balcony.
+> in
+Receiving Hall
+
+# Moving around the room (map position)
+> go to pastry table
+You make your way over to the pastry table.
+> go to
+What do you want to go to?
+> stairs
+make your way over to the double staircase
+
+# Conversations: examining or approaching starts one; numbers pick options
+---
+> x group
+Which do you mean, the guests by the wine table, the guests by the pastry table or the guests on the south balcony?
+> wine
+TODO: describe the guests by the wine table.
+Talking with the guests by the wine table
+TODO: what the guests by the wine table say when you join them.
+1. TODO: first reply.
+2. TODO: second reply.
+3. Leave the conversation.
+> 9
+Choose a number from 1 to 3
+> 1
+TODO: their answer to the first reply.
+> 1
+TODO: what the guests by the wine table say when you join them.
+> leave
+You excuse yourself from the guests by the wine table.
+> go to wine group
+You make your way over to the guests by the wine table.
+TODO: what the guests by the wine table say when you come back.
+> 2
+You excuse yourself
+# Typing a normal command steps out of the conversation
+> talk to pastry group
+TODO: what the guests by the pastry table say when you join them.
+> x lily
+(You step away from the guests by the pastry table.)
+single white lily
+> 1
+I don't know the word "1"
+# An option can run an action
+> talk to pastry group
+TODO: what the guests by the pastry table say when you come back.
+> 1
+> 1
+TODO: what the guests by the pastry table say when you join them.
+> 2
+> 1
+Receiving Hall
+> 1
+I don't know the word "1"
+
+# Restart asks first, then clears the game
+> restart
+Type YES to confirm
+> no
+Restart cancelled.
+
+# Undo
+---
+> eat cake
+honey cake in two bites
+> undo
+Undone.
+> x cake
+glazed with honey
+> undo
+Undone.
+> undo
+nothing to undo

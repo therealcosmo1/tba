@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Story editor</title>
+  <link rel="stylesheet" href="../styles/terminal.css">
+  <link rel="stylesheet" href="editor.css">
+</head>
+<body class="editor">
+  <header class="bar">
+    <h1>Story editor</h1>
+    <select id="story-select" class="story-select" title="Which story you are editing" aria-label="Story"></select>
+    <div class="tabs" role="group" aria-label="Edit">
+      <button type="button" data-tab="game" aria-pressed="false">Game</button>
+      <button type="button" data-tab="locations" aria-pressed="false">Locations</button>
+      <button type="button" data-tab="objects" aria-pressed="false">Objects</button>
+      <button type="button" data-tab="actors" aria-pressed="true">Actors</button>
+      <button type="button" data-tab="events" aria-pressed="false">Events</button>
+      <button type="button" data-tab="verbs" aria-pressed="false">Verbs</button>
+      <button type="button" data-tab="walkthroughs" aria-pressed="false" title="Playthroughs replayed to check the game still works">Walkthroughs</button>
+      <button type="button" data-tab="flow" aria-pressed="false" title="What sets and checks each variable, and what triggers each event">Flow</button>
+    </div>
+    <input type="search" id="find" class="find" placeholder="Find…" aria-label="Find in the story" autocomplete="off">
+    <p class="save-status" id="status" role="status">Loading…</p>
+    <select id="insert-text" class="insert-text" disabled title="Variable text: click into a text box first, then pick one to insert at the cursor" aria-label="Insert variable text"></select>
+    <button type="button" id="undo" title="Undo (⌘Z / Ctrl+Z outside a text box)" disabled>Undo</button>
+    <button type="button" id="redo" title="Redo (⇧⌘Z / Ctrl+Y outside a text box)" disabled>Redo</button>
+    <button type="button" class="play" id="play" title="Play the story as it is now, unsaved edits included">Play</button>
+    <button type="button" class="primary" id="save" title="Save (⌘S / Ctrl+S)">Save</button>
+    <button type="button" id="publish" title="Save, run the tests, and commit and push the game as a Game: commit" hidden>Publish</button>
+  </header>
+
+  <div class="panes">
+    <nav class="sidebar" aria-label="Story items">
+      <div class="list-tools" id="list-tools">
+        <button type="button" id="fold-all">Collapse all</button>
+        <button type="button" id="unfold-all">Expand all</button>
+      </div>
+      <div class="list" id="list"></div>
+      <button type="button" id="new">+ New actor</button>
+      <button type="button" id="new-area" hidden>+ New area</button>
+      <section class="problems" aria-labelledby="problems-heading">
+        <h2 id="problems-heading">Problems <span id="problems-count"></span></h2>
+        <ul id="problems"></ul>
+      </section>
+    </nav>
+    <main class="main" id="main"></main>
+    <aside class="inspector" id="inspector" aria-label="Selected line"></aside>
+  </div>
+
+  <datalist id="var-names"></datalist>
+  <script type="module" src="editor.js"></script>
+</body>
+</html>

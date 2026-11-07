@@ -1,0 +1,48 @@
+@content fixtures/verbs.js
+# The game's own verbs, against a neutral fixture.
+
+# A verb with a thing: its reply, with the thing filled in (capitalised)
+> verbone thing2
+VERB1_REPLY The THING_2
+> verbalt thing2
+VERB1_REPLY The THING_2
+
+# A thing's reaction to the verb replaces the reply
+> verbone thing1
+THING1_REACTS
+!VERB1_REPLY
+
+# Missing noun: the parser asks, using the verb's words
+> verbone
+What do you want to verbone?
+> thing2
+VERB1_REPLY
+
+# A verb with no thing, and a rule that happens once, instead of the reply
+> verbtwo
+VERB2_LOC1
+!VERB2_REPLY
+> verbtwo
+VERB2_REPLY
+
+# A rule's effects carry on into the game (verb2 set v2)
+> verbfive thing2
+Nothing happens.
+> i
+THING_2
+
+# Two slots, the second something carried; no reply set gives the default
+> verbthree thing1 with tool1
+Nothing happens.
+
+# A game's verb wins over the built-in one for the same words
+> examine thing2
+VERB4_OWNS_EXAMINE the THING_2
+> x thing2
+!VERB4_OWNS_EXAMINE
+
+# Rules don't apply elsewhere
+> n
+LOC_2
+> verbtwo
+VERB2_REPLY

@@ -1,0 +1,3 @@
+#!/bin/sh
+# Keeps game commits and kit commits apart. Turned on by: npm run setup
+exec node "$(git rev-parse --show-toplevel)/kit/tools/check-commit.mjs" "$1"

@@ -1,0 +1,39 @@
+@content fixtures/game.js
+# Game settings and location extras from the editor, against a neutral fixture.
+
+# The player starts where the settings say, described with start-screen answers
+LOC_1 description.
+!Ways out
+> x me
+PLAYER_DESC Ada
+
+# Senses, a refused direction, and a background line every turn (chance 100)
+> smell
+LOC1_SMELL
+AMBIENT_1
+> listen
+LOC1_LISTEN
+> w
+LOC1_REFUSE
+
+# An unconnected staircase drawn in the room says its own message
+> u
+STAIRS_BLOCKED
+
+# Extra directions on each end of a passage; editor locations list their ways out
+> out
+LOC_2
+Ways out: the ARCH_1 (south)
+> in
+LOC_1
+
+# The default HELP text names no game's objects
+> help
+Type commands in plain English
+examine the door
+
+# Meta commands don't use up a turn: no background line (chance 100) after them
+> i
+!AMBIENT_1
+> help
+!AMBIENT_1

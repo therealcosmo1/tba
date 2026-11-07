@@ -1,0 +1,58 @@
+@content fixtures/text.js
+# Variable text in game strings, against a neutral fixture.
+
+# {once} shows only the first time, {again} every time after
+LOC1_DESC FIRST_VISIT
+!LATER_VISIT
+> look
+LOC1_DESC LATER_VISIT
+!FIRST_VISIT
+
+# {if}/{else} with a variable, and plain variables still fill in
+> x me
+PLAYER_DESC Ada FLAG_OFF
+
+# {cycle} goes round, {stopping} stays on the last
+> x thing1
+C1
+> x thing1
+C2
+> x thing1
+C3
+> x thing1
+C1
+> x thing2
+S1
+> x thing2
+S2
+> x thing2
+S2
+
+# {either} picks one of its choices
+> x thing4
+E:E
+
+# Comparisons and {if not}, nested
+> x thing3
+COUNT_LOW NO_FLAG
+
+# A {once} in a branch that wasn't shown doesn't use itself up
+> read thing4
+SHOWN
+!HIDDEN_ONCE
+> touch thing5
+> x me
+FLAG_ON
+> read thing4
+HIDDEN_ONCE
+> read thing4
+!HIDDEN_ONCE
+> touch thing5
+> x thing3
+COUNT_HIGH
+
+# Built-in messages can vary too
+> z
+WAIT_A
+> z
+WAIT_B

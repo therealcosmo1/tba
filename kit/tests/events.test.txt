@@ -1,0 +1,70 @@
+@content fixtures/events.js
+# Events, conditions and effects, against a neutral fixture.
+
+!EVENT_
+> talk to actor1
+LINE_A
+1. OPT_SET
+!OPT_GATED
+!EVENT_MANUAL
+
+# An option with effects and no "go" stays on the same line; a condition now passes
+> 1
+OPT_SET
+2. OPT_GATED
+
+# Reaching a line runs its effects; turn 3 fires the turn event; seenNode, has and
+# variable conditions all pass in the same end-of-turn check
+> 2
+LINE_B
+EVENT_TURN3
+EVENT_AFTER_B
+EVENT_REPEAT
+EVENT_COUNT
+
+# Once-only events don't repeat; repeating ones do
+> 1
+LINE_A
+EVENT_REPEAT
+!EVENT_TURN3
+!EVENT_AFTER_B
+
+# Meta commands don't take a turn, so no events
+> i
+You step away from ACTOR_1
+ITEM_1
+!EVENT_REPEAT
+> drop item1
+Dropped.
+!EVENT_REPEAT
+
+# Entering a room starts a conversation through an event
+> n
+ROOM_2
+LINE_X
+The ACTOR_3
+!the The ACTOR_3
+> leave
+excuse yourself
+> s
+ROOM_1
+
+# An option can trigger an event directly; one that only happens when triggered
+# didn't run on its own, and runs again each time it's triggered
+> talk to actor1
+LINE_A
+> 3
+EVENT_MANUAL
+> 3
+EVENT_MANUAL
+
+# Ending the game stops play until undo or restart
+> 4
+THE_END
+The story has ended
+> look
+The story has ended
+> undo
+Undone.
+> look
+ROOM_1

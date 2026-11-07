@@ -1,0 +1,60 @@
+@content fixtures/locations.js
+# Editor locations, doors and passages, against a neutral fixture.
+
+# Hand-written rooms don't list exits; editor locations do
+ROOM_1
+!Ways out
+
+# An existing door, unlocked by the editor, leads to a new location; the way back is listed
+> n
+(first opening the OLD_DOOR)
+LOC_2
+LOC_2 description.
+Ways out: the OLD_DOOR (south) and the DOOR_2 (east).
+!CHUTE_5
+
+# A locked new door; an event unlocks it on turn 4
+> e
+DOOR_2 is locked
+> z
+!UNLOCKED
+> z
+UNLOCKED
+> e
+(first opening the DOOR_2)
+LOC_3
+the PASSAGE_3 (north)
+the STAIRS_4 (up)
+
+# A passage that isn't connected yet
+> n
+doesn't lead anywhere yet
+> enter passage3
+doesn't lead anywhere yet
+
+# Stairs: by direction, by climbing, and back
+> u
+ROOM_1
+> climb stairs4
+LOC_3
+> w
+LOC_2
+> s
+ROOM_1
+> close olddoor
+You close the OLD_DOOR.
+> x olddoor
+closed
+
+# A one-way passage: listed and usable from its start, refused from the far end
+> n
+LOC_2
+> u
+ONE_WAY_BLOCKED
+> enter chute5
+ONE_WAY_BLOCKED
+> e
+LOC_3
+the CHUTE_5 (down)
+> d
+LOC_2
