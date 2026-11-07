@@ -29,6 +29,7 @@ const pkg = JSON.parse(await readFile(path.join(root, 'package.json'), 'utf8'));
 pkg.name = 'my-game';
 await writeFile(path.join(stage, 'package.json'), `${JSON.stringify(pkg, null, 2)}\n`);
 await cp(path.join(kit, 'README.md'), path.join(stage, 'README.md'));
+await cp(path.join(root, 'LICENSE'), path.join(stage, 'LICENSE'));
 await writeFile(path.join(stage, '.gitignore'), '.DS_Store\nnode_modules/\ndist/\n*.log\n');
 await writeFile(path.join(stage, '.nojekyll'), '');
 
